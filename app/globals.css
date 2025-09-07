@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Genel tema kısaltmaları (projenizdeki mevcut utility'ler korunur) */
+:root { --bg: 248 250 252; --fg: 15 23 42; }
+body { color: rgb(var(--fg)); background: rgb(var(--bg)); }
+
+.container-narrow { @apply max-w-5xl mx-auto px-4 sm:px-6; }
+.card { @apply rounded-2xl shadow-soft border border-slate-200 bg-white; }
+.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border transition; }
+.btn-primary { @apply bg-brand text-white border-brand hover:bg-brand/90; }
+.btn-outline { @apply border-slate-300 text-slate-700 hover:bg-slate-50; }
+.input { @apply w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand/40; }
+.label { @apply text-sm font-medium text-slate-700; }
+.label-required::after { content: " *"; @apply text-red-600; }
+.badge { @apply inline-flex items-center rounded-full bg-brand/10 text-brand px-3 py-1 text-xs font-medium; }
+.kbd { @apply inline-flex items-center rounded border px-1.5 py-0.5 text-xs text-slate-600 bg-slate-50; }
+.pill { @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700; }
+.grid2 { @apply grid grid-cols-1 sm:grid-cols-2 gap-4; }
+.hero { background: radial-gradient(1200px 300px at 50% -50%, rgba(14,165,233,.25), transparent 60%); }
+
+/* Masaüstü sabit yan reklamlar için içerik taşmaları zaten kenara yakın
+   olacak şekilde konumlandırıldı (left/right: 8px). Ekstra ayar gerekmez. */
