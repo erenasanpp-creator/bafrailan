@@ -2,7 +2,17 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { currentUser, setCurrentUserId, ensureAdmin } from "../lib/mockdb"
+import { supabase } from "@/lib/supabase";
+
+useEffect(() => {
+  (async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { setMe(null); return; }
+    const { data: prof } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+    setMe(prof ?? null);
+  })();
+}, []);
+
 
 export default function NavBar() {
   const [me, setMe] = useState<any | null>(null)
