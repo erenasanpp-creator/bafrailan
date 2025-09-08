@@ -1,36 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+// ÖNEMLİ: alias yerine göreceli yol
+import { supabase } from "../../lib/supabase";
 
 export default function Debug() {
-  const [state, setState] = useState<any>(null);
-
-  useEffect(() => {
-    (async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      const user = userData.user ?? null;
-
-      let prof = null as any;
-      if (user) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .maybeSingle();
-        prof = data ?? null;
-      }
-
-      setState({
-        host: typeof window !== "undefined" ? window.location.host : null,
-        user,
-        prof,
-      });
-    })();
-  }, []);
-
-  return (
-    <pre style={{ padding: 16, whiteSpace: "pre-wrap" }}>
-      {JSON.stringify(state, null, 2)}
-    </pre>
-  );
+  const [s, setS] = useState<any>(null);
+  useEffect(() => { (async () => {
+    const u = (await supabase.auth.getUser()).data.user;
+    const p = u ? (await supabase.from("profiles").select("*").eq("id", u.id).maybeSingle()).data : null;
+    setS({ host: typeof window !== "undefined" ? location.host : null, user: u, prof: p });
+  })(); }, []);
+  return <pre style={{padding:16,whiteSpace:"pre-wrap"}}>{JSON.stringify(s, null, 2)}</pre>;
 }
