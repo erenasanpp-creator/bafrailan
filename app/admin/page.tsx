@@ -3,7 +3,7 @@
 export const dynamic = "force-dynamic"; // önbellek/SSR sapıtmalarını önle
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "../../lib/supabase";
 
 type Me = { role?: string|null; approved?: boolean|null } | null;
 
