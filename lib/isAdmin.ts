@@ -1,7 +1,7 @@
 // lib/isAdmin.ts
 import { supabase } from "./supabase";
 
-// Bu e-postayla giriş yapan HERKES admin sayılır
+// Bu e-postayla giriş yapan herkes admin kabul edilir
 const ADMIN_EMAIL = "erenasanpp@gmail.com";
 
 export async function isAdmin(): Promise<boolean> {
@@ -9,10 +9,10 @@ export async function isAdmin(): Promise<boolean> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return false;
 
-  // 2) E-posta üzerinden admin?
+  // 2) E-posta ile admin kontrolü
   if ((user.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) return true;
 
-  // 3) Profilden admin (veritabanı rolü)
+  // 3) (Opsiyonel) Veritabanı rolü de admin ise
   const { data: prof } = await supabase
     .from("profiles")
     .select("role")
